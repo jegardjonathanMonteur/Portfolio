@@ -4,8 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:clean": "if exist .next rd /s /q .next && next dev",
-    "prebuild": "if exist .next rd /s /q .next",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
