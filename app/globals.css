@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-principal: #0B1729;
+  --bg-card: #0D1B30;
+  --bg-elevated: #1A2A40;
+  --accent-mist: #7B8DA8;
+  --accent-violet: #B8A8D0;
+  --text-primary: #F5F1E8;
+  --text-muted: #A8A29A;
+  --border: rgba(232, 224, 208, 0.1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-principal);
+    color: var(--text-primary);
+    @apply font-sans font-light antialiased;
+    cursor: none;
+  }
+
+  a, button, [role="button"] {
+    cursor: none;
+  }
+
+  ::selection {
+    background-color: rgba(184, 168, 208, 0.35);
+    color: var(--text-primary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  .text-label {
+    color: #a8a29a;
+    @apply font-sans text-xs font-normal uppercase tracking-[0.2em];
+  }
+
+  /** Transition douce entre sections */
+  .section-fade {
+    @apply transition-opacity duration-[600ms] ease-out;
+  }
+
+  /** Cartes services — glassmorphism léger */
+  .glass-card {
+    background: rgba(245, 241, 232, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 224, 208, 0.08);
+  }
+
+  /** Fondu hero → section suivante */
+  .hero-transition {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20vh;
+    pointer-events: none;
+    z-index: 10;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--bg-principal)
+    );
+  }
+}
