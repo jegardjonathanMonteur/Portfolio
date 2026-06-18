@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Point = { x: number; y: number; life: number };
 
@@ -13,8 +13,15 @@ const LIFE_DECAY = 0.025;
  * Curseur natif inchangé. Desktop uniquement (md+).
  */
 export function CursorFollower() {
+  const [isDesktop, setIsDesktop] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const points = useRef<Point[]>([]);
+
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+
+  if (!isDesktop) return null;
 
   useEffect(() => {
     const canvas = canvasRef.current;
