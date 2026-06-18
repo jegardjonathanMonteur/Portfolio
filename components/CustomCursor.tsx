@@ -22,6 +22,7 @@ let ringId = 0;
 
 export function CustomCursor() {
   const [isDesktop, setIsDesktop] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const trailDotsRef = useRef<HTMLDivElement[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
@@ -32,6 +33,7 @@ export function CustomCursor() {
 
   useEffect(() => {
     setIsDesktop(window.matchMedia("(pointer: fine)").matches);
+    setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
   useEffect(() => {
@@ -45,6 +47,7 @@ export function CustomCursor() {
   }, []);
 
   if (!isDesktop) return null;
+  if (isTouchDevice) return null;
 
   return (
     <>
@@ -67,15 +70,16 @@ export function CustomCursor() {
       </div>
       <div
         ref={cursorRef}
-        className="pointer-events-none"
         style={{
           position: "fixed",
           top: 0,
           left: 0,
-          width: 40,
-          height: 40,
-          background: "red",
-          border: "3px solid yellow",
+          width: 32,
+          height: 32,
+          borderRadius: "50%",
+          background: "transparent",
+          border: "1.5px solid rgba(255, 255, 255, 0.6)",
+          pointerEvents: "none",
           zIndex: 99999,
         }}
       />
