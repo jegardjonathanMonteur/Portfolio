@@ -85,6 +85,11 @@ export function Contact() {
         <p className="mt-32 font-sans text-xs text-fog-mist opacity-50">
           © {SITE.year} — Jonathan Jegard. {SITE.location}
         </p>
+        <p
+          className="mx-auto mt-3 max-w-[600px] px-4 text-center font-sans text-[11px] leading-relaxed text-fog-mist opacity-35"
+        >
+          Tous droits réservés. Le contenu, le design et le code de ce site sont la propriété exclusive de Jonathan Jegard. Toute reproduction, modification ou réutilisation, totale ou partielle, à des fins commerciales ou malveillantes, est strictement interdite sans autorisation écrite préalable.
+        </p>
       </motion.div>
     </section>
   );
