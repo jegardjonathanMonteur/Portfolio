@@ -147,7 +147,7 @@ export function SelectedWork() {
                 />
               )}
               <p className="mt-6 font-sans text-base leading-relaxed text-fog-mist">
-                Une vidéo de vente qui convainc. Validée par l&apos;équipe VK Studio.
+                Exercice de VSL réalisé lors de ma formation au VK Studio, validé par les formateurs.
               </p>
             </div>
           </FadeIn>
