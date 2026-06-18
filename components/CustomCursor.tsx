@@ -26,6 +26,7 @@ export function CustomCursor() {
   const trailDotsRef = useRef<HTMLDivElement[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
+  const hoveredRef = useRef(false);
   const [hovered, setHovered] = useState(false);
   const [rings, setRings] = useState<RippleRing[]>([]);
 
@@ -49,10 +50,14 @@ export function CustomCursor() {
         target.getAttribute("role") === "button"
       ) {
         setHovered(true);
+        hoveredRef.current = true;
       }
     };
 
-    const onOut = () => setHovered(false);
+    const onOut = () => {
+      setHovered(false);
+      hoveredRef.current = false;
+    };
 
     const onDown = (e: MouseEvent) => {
       const { clientX: x, clientY: y } = e;
@@ -76,21 +81,17 @@ export function CustomCursor() {
 
     const maxTrail = 20;
     const trail: TrailPoint[] = [];
+    let posX = 0, posY = 0;
 
     const lerp = () => {
       const el = cursorRef.current;
       if (!el) return;
       const target = mouseRef.current;
-      const current = {
-        x: parseFloat(el.style.left) || 0,
-        y: parseFloat(el.style.top) || 0,
-      };
-      const newX = current.x + (target.x - current.x) * 0.25;
-      const newY = current.y + (target.y - current.y) * 0.25;
-      el.style.left = `${newX}px`;
-      el.style.top = `${newY}px`;
+      posX += (target.x - posX) * 0.25;
+      posY += (target.y - posY) * 0.25;
+      el.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%) scale(${hoveredRef.current ? 1.8 : 1})`;
 
-      trail.unshift({ x: newX, y: newY });
+      trail.unshift({ x: posX, y: posY });
       if (trail.length > maxTrail) trail.pop();
       updateTrailDots(trail, trailDotsRef.current);
 
@@ -130,14 +131,11 @@ export function CustomCursor() {
       </div>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed z-[9999] -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors duration-200"
+        className="pointer-events-none fixed z-[9999] rounded-full transition-colors duration-200"
         style={{
           width: 14,
           height: 14,
           border: "1.5px solid rgba(255,255,255,0.55)",
-          transform: hovered
-            ? "translate(-50%, -50%) scale(1.8)"
-            : "translate(-50%, -50%) scale(1)",
           borderColor: hovered ? "rgba(168,200,232,0.8)" : "rgba(255,255,255,0.55)",
         }}
       />
