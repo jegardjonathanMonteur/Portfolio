@@ -21,12 +21,17 @@ type TrailPoint = {
 let ringId = 0;
 
 export function CustomCursor() {
+  const [isDesktop, setIsDesktop] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
   const trailDotsRef = useRef<HTMLDivElement[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef<number>(0);
   const [hovered, setHovered] = useState(false);
   const [rings, setRings] = useState<RippleRing[]>([]);
+
+  useEffect(() => {
+    setIsDesktop(window.matchMedia("(pointer: fine)").matches);
+  }, []);
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -101,6 +106,8 @@ export function CustomCursor() {
       cancelAnimationFrame(rafRef.current);
     };
   }, []);
+
+  if (!isDesktop) return null;
 
   return (
     <>
