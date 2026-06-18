@@ -95,20 +95,20 @@ export function CustomCursor() {
         {rings.map((ring) => (
           <motion.div
             key={ring.id}
-            initial={{ width: 0, height: 0, opacity: 1, x: ring.x, y: ring.y }}
-            animate={{
-              width: 110,
-              height: 110,
-              opacity: 0,
-              x: ring.x - 55,
-              y: ring.y - 55,
-            }}
+            initial={{ scale: 0, opacity: 0.9 }}
+            animate={{ scale: 1, opacity: 0 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="pointer-events-none fixed z-[9999] rounded-full"
+            className="pointer-events-none fixed rounded-full"
             style={{
+              left: ring.x,
+              top: ring.y,
+              width: 110,
+              height: 110,
+              transform: "translate(-50%, -50%)",
               border: "2px solid rgba(74, 111, 227, 0.9)",
               background: "transparent",
+              zIndex: 99998,
             }}
           />
         ))}
