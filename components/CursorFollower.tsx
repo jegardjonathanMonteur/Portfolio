@@ -7,11 +7,6 @@ type Point = { x: number; y: number; life: number };
 const TRAIL_CREAM = "245, 241, 232";
 const LIFE_DECAY = 0.025;
 
-/**
- * Traînée canvas — clearRect chaque frame, points avec lifetime.
- * Pas de voile semi-transparent : le site reste intact.
- * Curseur natif inchangé. Desktop uniquement (md+).
- */
 export function CursorFollower() {
   const [isDesktop, setIsDesktop] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -21,9 +16,8 @@ export function CursorFollower() {
     setIsDesktop(window.matchMedia("(pointer: fine)").matches);
   }, []);
 
-  if (!isDesktop) return null;
-
   useEffect(() => {
+    if (!isDesktop) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -75,7 +69,9 @@ export function CursorFollower() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop) return null;
 
   return (
     <canvas
