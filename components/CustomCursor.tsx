@@ -89,7 +89,7 @@ export function CustomCursor() {
       const target = mouseRef.current;
       posX += (target.x - posX) * 0.25;
       posY += (target.y - posY) * 0.25;
-      el.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%) scale(${hoveredRef.current ? 1.8 : 1})`;
+      // el.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%) scale(${hoveredRef.current ? 1.8 : 1})`;
 
       trail.unshift({ x: posX, y: posY });
       if (trail.length > maxTrail) trail.pop();
@@ -131,12 +131,17 @@ export function CustomCursor() {
       </div>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed z-[9999] rounded-full transition-colors duration-200"
+        className="pointer-events-none"
         style={{
-          width: 14,
-          height: 14,
-          border: "1.5px solid rgba(255,255,255,0.55)",
-          borderColor: hovered ? "rgba(168,200,232,0.8)" : "rgba(255,255,255,0.55)",
+          position: "fixed",
+          top: 100,
+          left: 100,
+          width: 40,
+          height: 40,
+          background: "red",
+          border: "3px solid yellow",
+          opacity: 1,
+          zIndex: 99999,
         }}
       />
       <AnimatePresence>
