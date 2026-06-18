@@ -7,10 +7,6 @@ type RippleRing = {
   id: number;
   x: number;
   y: number;
-  delay: number;
-  maxSize: number;
-  duration: number;
-  opacity: number;
 };
 
 type TrailPoint = {
@@ -40,10 +36,21 @@ export function CustomCursor() {
     const onMove = (e: MouseEvent) => {
       if (!cursorRef.current) return;
       cursorRef.current.style.transform =
-        `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+        `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%) scale(${hoveredRef.current ? 1.8 : 1})`;
+    };
+    const onDown = (e: MouseEvent) => {
+      const newRing = { id: ++ringId, x: e.clientX, y: e.clientY };
+      setRings((prev) => [...prev, newRing]);
+      setTimeout(() => {
+        setRings((prev) => prev.filter((r) => r.id !== newRing.id));
+      }, 600);
     };
     window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("mousedown", onDown);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousedown", onDown);
+    };
   }, []);
 
   if (!isDesktop) return null;
@@ -74,11 +81,11 @@ export function CustomCursor() {
           position: "fixed",
           top: 0,
           left: 0,
-          width: 32,
-          height: 32,
+          width: 14,
+          height: 14,
           borderRadius: "50%",
-          background: "transparent",
-          border: "1.5px solid rgba(255, 255, 255, 0.6)",
+          background: "#4A6FE3",
+          boxShadow: "0 0 12px rgba(74, 111, 227, 0.6)",
           pointerEvents: "none",
           zIndex: 99999,
         }}
@@ -87,31 +94,20 @@ export function CustomCursor() {
         {rings.map((ring) => (
           <motion.div
             key={ring.id}
-            initial={{
-              width: 0,
-              height: 0,
-              opacity: ring.opacity,
-              x: ring.x,
-              y: ring.y,
-            }}
+            initial={{ width: 0, height: 0, opacity: 1, x: ring.x, y: ring.y }}
             animate={{
-              width: ring.maxSize,
-              height: ring.maxSize,
+              width: 80,
+              height: 80,
               opacity: 0,
-              x: ring.x - ring.maxSize / 2,
-              y: ring.y - ring.maxSize / 2,
+              x: ring.x - 40,
+              y: ring.y - 40,
             }}
             exit={{ opacity: 0 }}
-            transition={{
-              delay: ring.delay,
-              duration: ring.duration,
-              ease: "easeOut",
-            }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="pointer-events-none fixed z-[9999] rounded-full"
             style={{
-              border: "1px solid #A8C8E8",
-              left: 0,
-              top: 0,
+              border: "1.5px solid rgba(74, 111, 227, 0.8)",
+              background: "transparent",
             }}
           />
         ))}
