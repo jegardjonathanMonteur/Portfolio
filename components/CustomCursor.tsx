@@ -85,8 +85,8 @@ export function CustomCursor() {
           width: 10,
           height: 10,
           borderRadius: "50%",
-          background: "rgba(74, 111, 227, 0.45)",
-          boxShadow: "0 0 10px rgba(74, 111, 227, 0.4)",
+          background: "rgba(255, 255, 255, 0.45)",
+          boxShadow: "0 0 10px rgba(255, 255, 255, 0.4)",
           pointerEvents: "none",
           zIndex: 99999,
         }}
