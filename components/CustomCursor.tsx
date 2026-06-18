@@ -40,10 +40,11 @@ export function CustomCursor() {
     };
     const onDown = (e: MouseEvent) => {
       const newRing = { id: ++ringId, x: e.clientX, y: e.clientY };
+      console.log("RING CRÉÉ", newRing);
       setRings((prev) => [...prev, newRing]);
       setTimeout(() => {
         setRings((prev) => prev.filter((r) => r.id !== newRing.id));
-      }, 600);
+      }, 700);
     };
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mousedown", onDown);
@@ -81,11 +82,11 @@ export function CustomCursor() {
           position: "fixed",
           top: 0,
           left: 0,
-          width: 14,
-          height: 14,
+          width: 10,
+          height: 10,
           borderRadius: "50%",
-          background: "#4A6FE3",
-          boxShadow: "0 0 12px rgba(74, 111, 227, 0.6)",
+          background: "rgba(74, 111, 227, 0.45)",
+          boxShadow: "0 0 10px rgba(74, 111, 227, 0.4)",
           pointerEvents: "none",
           zIndex: 99999,
         }}
@@ -96,17 +97,17 @@ export function CustomCursor() {
             key={ring.id}
             initial={{ width: 0, height: 0, opacity: 1, x: ring.x, y: ring.y }}
             animate={{
-              width: 80,
-              height: 80,
+              width: 110,
+              height: 110,
               opacity: 0,
-              x: ring.x - 40,
-              y: ring.y - 40,
+              x: ring.x - 55,
+              y: ring.y - 55,
             }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="pointer-events-none fixed z-[9999] rounded-full"
             style={{
-              border: "1.5px solid rgba(74, 111, 227, 0.8)",
+              border: "2px solid rgba(74, 111, 227, 0.9)",
               background: "transparent",
             }}
           />
