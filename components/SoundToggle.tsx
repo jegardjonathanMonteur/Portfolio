@@ -11,10 +11,12 @@ export function SoundToggle() {
 
   useEffect(() => {
     const audio = audioRef.current;
+    const onEnded = () => setIsOn(false);
+
     if (audio) {
       audio.volume = VOLUME;
       audio.play().then(() => setIsOn(true)).catch(() => {});
-      audio.addEventListener("ended", () => setIsOn(false));
+      audio.addEventListener("ended", onEnded);
     }
 
     const onVideoPlaying = () => {
@@ -36,6 +38,12 @@ export function SoundToggle() {
     return () => {
       document.removeEventListener("video-playing", onVideoPlaying);
       document.removeEventListener("video-ended", onVideoEnded);
+      if (audio) {
+        audio.removeEventListener("ended", onEnded);
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      setIsOn(false);
     };
   }, []);
 

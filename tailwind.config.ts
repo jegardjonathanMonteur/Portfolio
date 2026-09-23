@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { VEXI_ACCENT } from "./lib/vexi";
 
 const config: Config = {
   content: [
@@ -24,6 +25,8 @@ const config: Config = {
         "cream-muted": "#A8A29A",
         lavender: "#A8A29A",
         border: "rgba(232, 224, 208, 0.1)",
+        /* Source unique : lib/vexi.ts → VEXI_ACCENT */
+        "vexi-accent": VEXI_ACCENT,
       },
       fontFamily: {
         display: ["var(--font-gohdtail)", "Ghodtail", "Georgia", "serif"],

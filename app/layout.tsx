@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { CursorFollower } from "@/components/CursorFollower";
-import { CustomCursor } from "@/components/CustomCursor";
 import { GrainOverlay } from "@/components/GrainOverlay";
-import { Navbar } from "@/components/Navbar";
-import { SoundToggle } from "@/components/SoundToggle";
+import { SiteHeader } from "@/components/SiteHeader";
 import { fontDisplay, fontSans } from "@/lib/fonts";
-import { SITE } from "@/lib/site";
+import { VEXI_SEO } from "@/lib/vexi";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${SITE.name} — ${SITE.tagline}`,
-  description: `Portfolio de Jonathan Jegard, ${SITE.tagline} — ${SITE.location}`,
+  metadataBase: new URL("https://jonathanjegard.com"),
+  title: VEXI_SEO.title,
+  description: VEXI_SEO.description,
+  openGraph: {
+    title: VEXI_SEO.title,
+    description: VEXI_SEO.description,
+    siteName: "Vexi",
+    locale: "fr_FR",
+    type: "website",
+    url: "/",
+  },
 };
 
 export default function RootLayout({
@@ -25,11 +31,8 @@ export default function RootLayout({
     >
       <body>
         <GrainOverlay />
-        <Navbar />
+        <SiteHeader />
         {children}
-        <CursorFollower />
-        <CustomCursor />
-        <SoundToggle />
       </body>
     </html>
   );

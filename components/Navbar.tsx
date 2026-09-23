@@ -134,7 +134,7 @@ export function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-        className="fixed left-0 right-0 top-0 z-50 px-12 py-6 transition-all duration-500"
+        className="portfolio-navbar fixed left-0 right-0 z-50 px-6 py-5 transition-all duration-500 md:px-12 md:py-6"
         style={{
           background: scrolled ? "rgba(11, 23, 41, 0.7)" : "transparent",
           backdropFilter: scrolled ? "blur(12px)" : "none",

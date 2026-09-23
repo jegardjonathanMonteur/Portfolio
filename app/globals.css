@@ -11,6 +11,9 @@
   --text-primary: #F5F1E8;
   --text-muted: #A8A29A;
   --border: rgba(232, 224, 208, 0.1);
+  --site-header-h: 2.75rem;
+  --subnav-h: 4.5rem;
+  --header-stack: calc(var(--site-header-h) + var(--subnav-h));
 }
 
 @layer base {
@@ -24,12 +27,15 @@
     background-color: var(--bg-principal);
     color: var(--text-primary);
     @apply font-sans font-light antialiased;
+  }
+
+  html:has(.portfolio-root),
+  html:has(.portfolio-root) a,
+  html:has(.portfolio-root) button,
+  html:has(.portfolio-root) [role="button"] {
     cursor: none;
   }
 
-  a, button, [role="button"] {
-    cursor: none;
-  }
 
   ::selection {
     background-color: rgba(184, 168, 208, 0.35);
@@ -48,6 +54,57 @@
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  height: var(--site-header-h);
+  background: rgba(11, 23, 41, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232, 224, 208, 0.08);
+}
+
+.vexi-subnav {
+  position: fixed;
+  top: var(--site-header-h);
+  left: 0;
+  right: 0;
+  z-index: 55;
+  height: var(--subnav-h);
+  background: rgba(11, 23, 41, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.portfolio-navbar {
+  top: var(--site-header-h);
+}
+
+.vexi-root > main {
+  padding-top: var(--header-stack);
+}
+
+/* Hors @layer pour passer devant utilitaires Tailwind (ex. scroll-mt-0) */
+html:has(.portfolio-root),
+html:has(.vexi-root) {
+  scroll-padding-top: var(--header-stack);
+}
+
+.portfolio-root section[id],
+.vexi-root section[id] {
+  scroll-margin-top: var(--header-stack);
+}
+
+/* Hero plein écran : titre sous les deux barres, image toujours full-bleed */
+.portfolio-root #accueil {
+  min-height: 100dvh;
+  padding-top: var(--header-stack);
+  box-sizing: border-box;
 }
 
 @layer utilities {
