@@ -1,10 +1,23 @@
 "use client";
 
+import { SON_ACTIVE } from "@/lib/site";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const VOLUME = 0.25;
 
+/**
+ * Son ambiant désactivé temporairement via SON_ACTIVE (lib/site.ts).
+ * Le composant et /audio/ambient.mp3 restent intacts pour une réactivation ultérieure.
+ */
 export function SoundToggle() {
+  if (!SON_ACTIVE) {
+    return null;
+  }
+
+  return <SoundToggleActive />;
+}
+
+function SoundToggleActive() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isOn, setIsOn] = useState(false);
   const wasPausedByVideo = useRef(false);

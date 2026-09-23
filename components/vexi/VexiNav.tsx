@@ -7,9 +7,16 @@ export function VexiNav() {
   const [active, setActive] = useState("presentation");
 
   useEffect(() => {
+    const TOP_THRESHOLD = 48;
+    const isAtTop = () => window.scrollY <= TOP_THRESHOLD;
+
     const sections = document.querySelectorAll<HTMLElement>("section[id]");
     const observer = new IntersectionObserver(
       (entries) => {
+        if (isAtTop()) {
+          setActive("presentation");
+          return;
+        }
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActive(entry.target.id);
@@ -19,7 +26,17 @@ export function VexiNav() {
       { threshold: 0.3 }
     );
     sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+
+    const onScroll = () => {
+      if (isAtTop()) setActive("presentation");
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   const handleNav = (

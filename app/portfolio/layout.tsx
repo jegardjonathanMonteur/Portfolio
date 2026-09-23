@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: "/portfolio",
     images: [
       {
-        url: "/hero-bg.jpg",
+        url: "https://jonathanjegard.com/hero-bg.jpg",
         alt: `${SITE.name} — ${SITE.tagline}`,
       },
     ],
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: PORTFOLIO_TITLE,
     description: PORTFOLIO_DESCRIPTION,
-    images: ["/hero-bg.jpg"],
+    images: ["https://jonathanjegard.com/hero-bg.jpg"],
   },
 };
 
@@ -44,6 +44,7 @@ export default function PortfolioLayout({
       {children}
       <CursorFollower />
       <CustomCursor />
+      {/* Son coupé tant que SON_ACTIVE === false (lib/site.ts). Composant conservé. */}
       <SoundToggle />
     </div>
   );

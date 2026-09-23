@@ -1,3 +1,10 @@
+/**
+ * Son ambiant désactivé temporairement sur tout le site (Vexi et portfolio).
+ * Remettre à true pour réafficher SoundToggle et relancer /audio/ambient.mp3.
+ * Ne pas supprimer le composant ni le fichier audio.
+ */
+export const SON_ACTIVE = false;
+
 export const SITE = {
   name: "JONATHAN JEGARD",
   initials: "JJ",
