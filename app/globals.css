@@ -89,6 +89,13 @@
   padding-top: var(--header-stack);
 }
 
+.vexi-demo-frame {
+  display: block;
+  width: 100%;
+  height: calc(100dvh - var(--header-stack));
+  border: 0;
+}
+
 /* Hors @layer pour passer devant utilitaires Tailwind (ex. scroll-mt-0) */
 html:has(.portfolio-root),
 html:has(.vexi-root) {

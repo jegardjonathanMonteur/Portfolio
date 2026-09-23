@@ -8,6 +8,16 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return {
+      afterFiles: [
+        {
+          source: "/demo/:path*",
+          destination: "/demo/index.html",
+        },
+      ],
+    };
+  },
 };
 
 export default nextConfig;
