@@ -1,12 +1,9 @@
 "use client";
 
+import { SITE } from "@/lib/site";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const SPACES = [
-  { label: "Vexi", href: "/" },
-  { label: "Portfolio monteur", href: "/portfolio" },
-] as const;
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -15,29 +12,44 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <nav
-        className="mx-auto flex h-full max-w-6xl items-center justify-center gap-2 px-4 sm:gap-6"
+        className="flex h-full items-center justify-center gap-2 px-4 sm:gap-6"
         aria-label="Espaces du site"
       >
-        {SPACES.map((space) => {
-          const isActive =
-            space.href === "/portfolio" ? isPortfolio : !isPortfolio;
-          return (
-            <Link
-              key={space.href}
-              href={space.href}
-              aria-current={isActive ? "page" : undefined}
-              className={`rounded-full px-3 py-1.5 font-sans text-[11px] uppercase tracking-[0.16em] transition-colors duration-300 sm:px-4 sm:text-xs ${
-                isActive
-                  ? isPortfolio
-                    ? "bg-white/10 text-[#E8E0D0]"
-                    : "bg-vexi-accent/20 text-vexi-accent"
-                  : "text-[#E8E0D0]/55 hover:text-[#E8E0D0]"
-              }`}
-            >
-              {space.label}
-            </Link>
-          );
-        })}
+        <Link
+          href="/"
+          aria-current={!isPortfolio ? "page" : undefined}
+          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-[11px] uppercase tracking-[0.16em] transition-colors duration-300 sm:px-4 sm:text-xs ${
+            !isPortfolio
+              ? "bg-vexi-accent/20 text-vexi-accent"
+              : "text-[#E8E0D0]/55 hover:text-[#E8E0D0]"
+          }`}
+        >
+          <Image
+            src="/logos/vexi.png"
+            alt=""
+            width={18}
+            height={18}
+            className="h-[18px] w-[18px] shrink-0 rounded-full"
+          />
+          Vexi
+        </Link>
+        <Link
+          href="/portfolio"
+          aria-current={isPortfolio ? "page" : undefined}
+          className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-[11px] uppercase tracking-[0.16em] transition-colors duration-300 sm:px-4 sm:text-xs ${
+            isPortfolio
+              ? "bg-white/10 text-[#E8E0D0]"
+              : "text-[#E8E0D0]/55 hover:text-[#E8E0D0]"
+          }`}
+        >
+          <span
+            className="font-display text-sm leading-none text-[#E8E0D0]"
+            aria-hidden
+          >
+            {SITE.initials}
+          </span>
+          Portfolio monteur
+        </Link>
       </nav>
     </header>
   );

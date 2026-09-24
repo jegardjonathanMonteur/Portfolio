@@ -63,9 +63,7 @@
   right: 0;
   z-index: 60;
   height: var(--site-header-h);
-  background: rgba(11, 23, 41, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: #0b1729;
   border-bottom: 1px solid rgba(232, 224, 208, 0.08);
 }
 
@@ -85,20 +83,31 @@
   top: var(--site-header-h);
 }
 
+.vexi-root {
+  height: 100dvh;
+  overflow: hidden;
+}
+
 .vexi-root > main {
-  padding-top: var(--header-stack);
+  padding-top: var(--site-header-h);
+  height: 100%;
 }
 
 .vexi-demo-frame {
   display: block;
   width: 100%;
-  height: calc(100dvh - var(--header-stack));
+  height: calc(100dvh - var(--site-header-h));
   border: 0;
 }
 
+html:has(.vexi-root),
+html:has(.vexi-root) body {
+  overflow: hidden;
+  height: 100%;
+}
+
 /* Hors @layer pour passer devant utilitaires Tailwind (ex. scroll-mt-0) */
-html:has(.portfolio-root),
-html:has(.vexi-root) {
+html:has(.portfolio-root) {
   scroll-padding-top: var(--header-stack);
 }
 
