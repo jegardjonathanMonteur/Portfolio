@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: VEXI_SEO.title,
     description: VEXI_SEO.description,
-    siteName: "Vexi",
+    siteName: "Vexi World",
     locale: "fr_FR",
     type: "website",
     url: "/",
