@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Point = { x: number; y: number; life: number };
 
@@ -10,13 +10,20 @@ const LIFE_DECAY = 0.025;
 /**
  * Traînée canvas — clearRect chaque frame, points avec lifetime.
  * Pas de voile semi-transparent : le site reste intact.
- * Curseur natif inchangé. Desktop uniquement (md+).
+ * Desktop uniquement (md+), et seulement avec une souris (pas au doigt).
+ * Identique à la version en ligne sur jonathanjegard.com (vérifié le 25/09/2026).
  */
 export function CursorFollower() {
+  const [avecSouris, setAvecSouris] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const points = useRef<Point[]>([]);
 
   useEffect(() => {
+    setAvecSouris(window.matchMedia("(pointer: fine)").matches);
+  }, []);
+
+  useEffect(() => {
+    if (!avecSouris) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -68,7 +75,9 @@ export function CursorFollower() {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [avecSouris]);
+
+  if (!avecSouris) return null;
 
   return (
     <canvas

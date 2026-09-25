@@ -18,6 +18,7 @@ const VOLUME = 0.25;
  * 3. Départ vers Vexi : arrêt immédiat. Retour sans l'avoir coupée : reprise là où elle
  *    s'était arrêtée.
  * 4. Une vidéo du portfolio se lance : pause, puis reprise à la fin de la vidéo.
+ * 5. Fin du morceau : il recommence tout seul, le bouton reste sur ON.
  */
 
 // Mémoire de la visite : ces variables survivent aux changements de page internes
@@ -99,10 +100,20 @@ function SoundToggleActive() {
     document.addEventListener("video-playing", onVideoPlaying);
     document.addEventListener("video-ended", onVideoEnded);
 
+    // Fin du morceau : il boucle (attribut loop). Filet de sécurité si un navigateur
+    // s'arrête quand même à la fin : on repart du début, et le bouton reste sur ON.
+    const onFin = () => {
+      if (coupeeParLeVisiteur) return;
+      audio.currentTime = 0;
+      void lancer();
+    };
+    audio.addEventListener("ended", onFin);
+
     return () => {
       retirerEcoute();
       document.removeEventListener("video-playing", onVideoPlaying);
       document.removeEventListener("video-ended", onVideoEnded);
+      audio.removeEventListener("ended", onFin);
       // Départ du portfolio : on retient où on en était, puis silence immédiat.
       positionReprise = audio.currentTime || 0;
       audio.pause();

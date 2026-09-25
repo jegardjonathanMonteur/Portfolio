@@ -91,6 +91,24 @@ export function VexiVitrineMobile({ appareil }: Props) {
           </ul>
         </section>
 
+        {/* Rappel du bouton principal en bas (validé le 25/09) :
+            Google Play sur Android, Instagram sur iPhone / iPad. */}
+        <section className="mt-10">
+          {estIos ? (
+            <a
+              href={VEXI_INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="vv-bouton-principal"
+            >
+              <IconeInstagram />
+              Suis @vexi_world
+            </a>
+          ) : (
+            <BoutonGooglePlay />
+          )}
+        </section>
+
         {/* 5. Soutenir */}
         <section className="vv-carte mt-12 flex flex-col items-center px-5 py-6 text-center">
           <p className="font-sans text-sm leading-relaxed text-[color:var(--vv-doux)]">
