@@ -51,6 +51,14 @@ export function SiteHeader() {
           Portfolio monteur
         </Link>
       </nav>
+      {/* Mentions légales : discrètes mais accessibles depuis toutes les pages (obligation légale). */}
+      <Link
+        href="/mentions-legales"
+        className="absolute right-3 top-1/2 -translate-y-1/2 font-sans text-[10px] tracking-[0.08em] text-[#E8E0D0]/40 transition-colors hover:text-[#E8E0D0]/80 sm:right-5"
+      >
+        <span className="hidden sm:inline">Mentions légales</span>
+        <span className="sm:hidden">Légal</span>
+      </Link>
     </header>
   );
 }
