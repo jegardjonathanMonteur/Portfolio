@@ -44,7 +44,7 @@ export default function PortfolioLayout({
       {children}
       <CursorFollower />
       <CustomCursor />
-      {/* Son coupé tant que SON_ACTIVE === false (lib/site.ts). Composant conservé. */}
+      {/* Musique d'ambiance du portfolio (jamais côté Vexi) : règles dans SoundToggle.tsx. */}
       <SoundToggle />
     </div>
   );

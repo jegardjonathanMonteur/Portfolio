@@ -1,9 +1,8 @@
 /**
- * Son ambiant désactivé temporairement sur tout le site (Vexi et portfolio).
- * Remettre à true pour réafficher SoundToggle et relancer /audio/ambient.mp3.
- * Ne pas supprimer le composant ni le fichier audio.
+ * Musique d'ambiance : uniquement sur le portfolio (jamais côté Vexi).
+ * Règles dans components/SoundToggle.tsx. Mettre à false pour la couper partout.
  */
-export const SON_ACTIVE = false;
+export const SON_ACTIVE = true;
 
 export const SITE = {
   name: "JONATHAN JEGARD",
