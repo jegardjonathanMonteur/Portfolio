@@ -63,8 +63,13 @@
   right: 0;
   z-index: 60;
   height: var(--site-header-h);
-  background: #0b1729;
-  border-bottom: 1px solid rgba(232, 224, 208, 0.08);
+  background: var(--site-header-bg, #0b1729);
+  border-bottom: 1px solid var(--site-header-border, rgba(232, 224, 208, 0.08));
+  box-shadow: var(--site-header-shadow, none);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .vexi-subnav {
@@ -157,4 +162,138 @@ html:has(.portfolio-root) {
       var(--bg-principal)
     );
   }
+}
+
+/* ------------------------------------------------------------------
+ * Vitrine Vexi sur téléphone et tablette (components/vexi/VexiVitrineMobile.tsx).
+ * Couleurs de l'app, qui suivent le mode clair / sombre du téléphone.
+ * ------------------------------------------------------------------ */
+.vexi-vitrine,
+.vexi-attente {
+  --vv-fond: #f3eee5;
+  --vv-carte: #ffffff;
+  --vv-texte: #16213a;
+  --vv-doux: #5e6780;
+  --vv-bord: rgba(22, 33, 58, 0.1);
+  --vv-accent: #476af5;
+  --vv-accent-texte: #ffffff;
+  min-height: 100dvh;
+  background: var(--vv-fond);
+}
+
+@media (prefers-color-scheme: dark) {
+  .vexi-vitrine,
+  .vexi-attente {
+    --vv-fond: #0d1220;
+    --vv-carte: #161e33;
+    --vv-texte: #f4f5f8;
+    --vv-doux: #9aa3b8;
+    --vv-bord: rgba(244, 245, 248, 0.12);
+    --vv-accent: #6f8cff;
+  }
+}
+
+.vexi-vitrine {
+  padding-top: var(--site-header-h);
+  color: var(--vv-texte);
+}
+
+/* Le fond de la page suit la vitrine (sinon le bleu nuit du site apparaît en « rebond »). */
+html:has(.vexi-vitrine) body,
+html:has(.vexi-attente) body {
+  background: #f3eee5;
+}
+@media (prefers-color-scheme: dark) {
+  html:has(.vexi-vitrine) body,
+  html:has(.vexi-attente) body {
+    background: #0d1220;
+  }
+}
+
+.vv-titre-section {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--vv-doux);
+}
+
+.vv-carte {
+  background: var(--vv-carte);
+  border: 1px solid var(--vv-bord);
+  border-radius: 18px;
+}
+
+.vv-bouton-principal,
+.vv-bouton-secondaire {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 52px;
+  border-radius: 999px;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.vv-bouton-principal {
+  width: 100%;
+  padding: 0 1.5rem;
+  font-size: 1.05rem;
+  background: var(--vv-accent);
+  color: var(--vv-accent-texte);
+  box-shadow: 0 8px 22px rgba(71, 106, 245, 0.35);
+}
+
+.vv-bouton-secondaire {
+  min-height: 46px;
+  padding: 0 1.4rem;
+  font-size: 0.95rem;
+  color: var(--vv-accent);
+  border: 1.5px solid var(--vv-accent);
+}
+
+.vv-bouton-principal:active,
+.vv-bouton-secondaire:active {
+  transform: scale(0.97);
+}
+
+.vv-inactif {
+  opacity: 0.55;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+.vv-carrousel {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.vv-carrousel::-webkit-scrollbar {
+  display: none;
+}
+
+.vv-toast {
+  pointer-events: none;
+  position: fixed;
+  left: 50%;
+  bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  z-index: 80;
+  transform: translateX(-50%);
+  max-width: calc(100vw - 2rem);
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: rgba(13, 18, 32, 0.92);
+  color: #f4f5f8;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 0.875rem;
+  text-align: center;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.vv-toast-cache {
+  opacity: 0;
+  transform: translate(-50%, 12px);
 }

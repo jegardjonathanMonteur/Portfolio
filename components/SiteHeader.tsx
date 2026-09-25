@@ -1,13 +1,60 @@
 "use client";
 
 import { SITE } from "@/lib/site";
+import {
+  applyVexiHeaderNight,
+  isVexiNightFromStorage,
+  prefersColorSchemeDark,
+  VEXI_THEME_STORAGE_KEY,
+} from "@/lib/vexi-header-theme";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useLayoutEffect } from "react";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const isPortfolio = pathname === "/portfolio" || pathname.startsWith("/portfolio/");
+
+  useLayoutEffect(() => {
+    if (isPortfolio) {
+      applyVexiHeaderNight(false);
+      return;
+    }
+
+    const sync = () => {
+      applyVexiHeaderNight(
+        isVexiNightFromStorage(
+          localStorage.getItem(VEXI_THEME_STORAGE_KEY),
+          prefersColorSchemeDark(),
+        ),
+      );
+    };
+
+    sync();
+
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === VEXI_THEME_STORAGE_KEY || event.key === null) {
+        sync();
+      }
+    };
+    window.addEventListener("storage", onStorage);
+
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    const onScheme = () => {
+      const stored = localStorage.getItem(VEXI_THEME_STORAGE_KEY);
+      if (stored !== "clair" && stored !== "sombre") {
+        sync();
+      }
+    };
+    mql.addEventListener("change", onScheme);
+
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      mql.removeEventListener("change", onScheme);
+      applyVexiHeaderNight(false);
+    };
+  }, [isPortfolio]);
 
   return (
     <header className="site-header">

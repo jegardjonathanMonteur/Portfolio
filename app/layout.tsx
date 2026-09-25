@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { SiteHeader } from "@/components/SiteHeader";
 import { fontDisplay, fontSans } from "@/lib/fonts";
+import { VEXI_HEADER_THEME_BOOT } from "@/lib/vexi-header-theme";
 import { VEXI_SEO } from "@/lib/vexi";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -28,7 +30,15 @@ export default function RootLayout({
     <html
       lang="fr"
       className={`${fontSans.variable} ${fontDisplay.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <Script
+          id="vexi-header-theme"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: VEXI_HEADER_THEME_BOOT }}
+        />
+      </head>
       <body>
         <GrainOverlay />
         <SiteHeader />
