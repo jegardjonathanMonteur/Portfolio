@@ -1,5 +1,6 @@
 "use client";
 
+import { LienEmail } from "@/components/LienEmail";
 import { Magnet } from "@/components/reactbits/Magnet";
 import { ShinyText } from "@/components/reactbits/ShinyText";
 import { SITE } from "@/lib/site";
@@ -38,25 +39,19 @@ export function Contact() {
           <em className="italic text-fog-mist">projet.</em>
         </h2>
 
-        <a
-          href={`mailto:${SITE.email}`}
-          className="font-sans text-2xl text-fog-cream underline-offset-8 transition-colors duration-300 hover:text-fog-mist hover:underline"
-        >
+        <LienEmail className="font-sans text-2xl text-fog-cream underline-offset-8 transition-colors duration-300 hover:text-fog-mist hover:underline">
           {SITE.email}
-        </a>
+        </LienEmail>
 
         <div className="mt-12 flex justify-center">
           <Magnet magnetStrength={4}>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="inline-flex items-center rounded-full border border-white/10 px-8 py-4 transition-colors duration-300 hover:border-fog-cream/30"
-            >
+            <LienEmail className="inline-flex items-center rounded-full border border-white/10 px-8 py-4 transition-colors duration-300 hover:border-fog-cream/30">
               <ShinyText
                 text="ÉCRIRE UN MESSAGE"
                 speed={6}
                 className="font-sans text-xs uppercase tracking-[0.2em]"
               />
-            </a>
+            </LienEmail>
           </Magnet>
         </div>
 

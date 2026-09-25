@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { LienEmail } from "@/components/LienEmail";
 import { SITE } from "@/lib/site";
 
 const NAV_LINKS = [
@@ -194,12 +195,9 @@ export function Navbar() {
             >
               <LinkedInIcon />
             </a>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="ml-2 rounded-full bg-[#3B5BFF] px-6 py-2.5 font-sans text-sm text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(59,91,255,0.4)]"
-            >
+            <LienEmail className="ml-2 rounded-full bg-[#3B5BFF] px-6 py-2.5 font-sans text-sm text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_20px_rgba(59,91,255,0.4)]">
               Me contacter
-            </a>
+            </LienEmail>
           </div>
 
           <button
