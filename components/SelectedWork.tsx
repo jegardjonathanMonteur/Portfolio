@@ -115,7 +115,7 @@ export function SelectedWork() {
           <FadeIn delay={0}>
             <div>
               <p className="mb-1 font-sans text-[11px] uppercase tracking-[0.136em] text-[#B8A8D0] opacity-50">
-                NARRATIF — 2026
+                NARRATIF · 2026
               </p>
               <VignetteCard
                 accent="#e89850"
@@ -133,7 +133,7 @@ export function SelectedWork() {
           <FadeIn delay={0.1}>
             <div>
               <p className="mb-1 font-sans text-[11px] uppercase tracking-[0.136em] text-[#B8A8D0] opacity-50">
-                VIDEO SALES LETTER — {vkStudio.year}
+                VIDEO SALES LETTER · {vkStudio.year}
               </p>
               {playingVsl ? (
                 <VideoPlayer src={vkStudio.videoSrc} title={vkStudio.title} showSoundToggle />
@@ -155,7 +155,7 @@ export function SelectedWork() {
           <FadeIn delay={0.2}>
             <div>
               <p className="mb-1 font-sans text-[11px] uppercase tracking-[0.136em] text-[#B8A8D0] opacity-50">
-                MOTION DESIGN — {treziroise.year}
+                MOTION DESIGN · {treziroise.year}
               </p>
               {playingTrez ? (
                 <VideoPlayer src={treziroise.videoSrc} title={treziroise.title} showSoundToggle />

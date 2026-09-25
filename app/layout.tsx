@@ -18,6 +18,21 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     type: "website",
     url: "/",
+    // Image montrée quand on partage le lien (WhatsApp, Instagram, Messenger…).
+    images: [
+      {
+        url: "https://jonathanjegard.com/vexi/apercu-lien.png",
+        width: 1200,
+        height: 630,
+        alt: "Vexi World : reconnais les 197 drapeaux du monde",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: VEXI_SEO.title,
+    description: VEXI_SEO.description,
+    images: ["https://jonathanjegard.com/vexi/apercu-lien.png"],
   },
 };
 

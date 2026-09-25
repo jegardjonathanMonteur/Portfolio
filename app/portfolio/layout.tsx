@@ -5,8 +5,8 @@ import { Navbar } from "@/components/Navbar";
 import { SoundToggle } from "@/components/SoundToggle";
 import { SITE } from "@/lib/site";
 
-const PORTFOLIO_TITLE = `${SITE.name} — ${SITE.tagline}`;
-const PORTFOLIO_DESCRIPTION = `Portfolio de Jonathan Jegard, ${SITE.tagline} — ${SITE.location}`;
+const PORTFOLIO_TITLE = `${SITE.name} · ${SITE.tagline}`;
+const PORTFOLIO_DESCRIPTION = `Portfolio de Jonathan Jegard, ${SITE.tagline} · ${SITE.location}`;
 
 export const metadata: Metadata = {
   title: PORTFOLIO_TITLE,
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     images: [
       {
         url: "https://jonathanjegard.com/hero-bg.jpg",
-        alt: `${SITE.name} — ${SITE.tagline}`,
+        alt: `${SITE.name} · ${SITE.tagline}`,
       },
     ],
   },

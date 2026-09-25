@@ -78,7 +78,7 @@ export function Contact() {
         </div>
 
         <p className="mt-32 font-sans text-xs text-fog-mist opacity-50">
-          © {SITE.year} — Jonathan Jegard. {SITE.location}
+          © {SITE.year} · Jonathan Jegard. {SITE.location}
         </p>
         <p
           className="mx-auto mt-3 max-w-[600px] px-4 text-center font-sans text-[11px] leading-relaxed text-fog-mist opacity-35"

@@ -1,6 +1,8 @@
 "use client";
 
+import { useLangueSite } from "@/lib/langue-site";
 import { SITE } from "@/lib/site";
+import { TEXTES_SITE } from "@/lib/textes-site";
 import {
   applyVexiHeaderNight,
   isVexiNightFromStorage,
@@ -15,6 +17,8 @@ import { useLayoutEffect } from "react";
 export function SiteHeader() {
   const pathname = usePathname();
   const isPortfolio = pathname === "/portfolio" || pathname.startsWith("/portfolio/");
+  // Libellés dans la langue du visiteur (règle du 25/09 : barre, vitrine et 404 traduites).
+  const T = TEXTES_SITE[useLangueSite()].barre;
 
   useLayoutEffect(() => {
     if (isPortfolio) {
@@ -95,7 +99,9 @@ export function SiteHeader() {
           >
             {SITE.initials}
           </span>
-          Portfolio monteur
+          {/* Sur téléphone, libellé court : sinon il chevauche « Légal » à droite. */}
+          <span className="hidden sm:inline">{T.portfolio}</span>
+          <span className="sm:hidden">{T.portfolioCourt}</span>
         </Link>
       </nav>
       {/* Mentions légales : discrètes mais accessibles depuis toutes les pages (obligation légale). */}
@@ -103,8 +109,8 @@ export function SiteHeader() {
         href="/mentions-legales"
         className="absolute right-3 top-1/2 -translate-y-1/2 font-sans text-[10px] tracking-[0.08em] text-[#E8E0D0]/40 transition-colors hover:text-[#E8E0D0]/80 sm:right-5"
       >
-        <span className="hidden sm:inline">Mentions légales</span>
-        <span className="sm:hidden">Légal</span>
+        <span className="hidden sm:inline">{T.mentions}</span>
+        <span className="sm:hidden">{T.mentionsCourt}</span>
       </Link>
     </header>
   );

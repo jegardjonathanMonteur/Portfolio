@@ -1,6 +1,8 @@
 "use client";
 
 import type { Appareil } from "@/lib/appareil";
+import { useLangueSite } from "@/lib/langue-site";
+import { TEXTES_SITE } from "@/lib/textes-site";
 import {
   APP_PUBLIEE,
   URL_PLAY_STORE_MOBILE,
@@ -8,30 +10,44 @@ import {
   URL_SOUTIEN,
   VEXI_CAPTURES,
   VEXI_INSTAGRAM,
-  VEXI_MODES,
 } from "@/lib/vexi";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-type Props = { appareil: Exclude<Appareil, "pc"> };
+type Textes = (typeof TEXTES_SITE)["fr"];
+
+type Props = {
+  appareil: Appareil;
+  /** Ordinateur avec une fenêtre trop étroite pour la démo : on invite à l'agrandir. */
+  fenetreEtroite?: boolean;
+};
 
 /**
  * Vitrine Vexi sur téléphone et tablette (règles validées le 25/09).
  * Pas de jeu ici : on donne envie, et on envoie vers l'app.
  * Couleurs : suivent le mode clair / sombre du téléphone (voir .vexi-vitrine dans globals.css).
+ * Langue : celle du navigateur (lib/langue-site.ts), textes dans lib/textes-site.ts.
  */
-export function VexiVitrineMobile({ appareil }: Props) {
+export function VexiVitrineMobile({ appareil, fenetreEtroite = false }: Props) {
+  const langue = useLangueSite();
+  const T = TEXTES_SITE[langue];
   const estIos = appareil === "ios";
 
   return (
-    <div className="vexi-vitrine">
+    <div className="vexi-vitrine" lang={langue}>
       <main className="mx-auto flex max-w-xl flex-col px-5 pb-16">
+        {fenetreEtroite ? (
+          <p className="vv-carte mt-6 px-4 py-3 text-center font-sans text-sm font-semibold text-[color:var(--vv-accent)]">
+            ↔ {T.vitrine.agrandir}
+          </p>
+        ) : null}
+
         {/* 1. Qui on est */}
         <section className="flex flex-col items-center pt-10 text-center">
           <Image
             src="/logos/vexi.png"
-            alt="Logo Vexi World"
+            alt={T.vitrine.logoAlt}
             width={88}
             height={88}
             priority
@@ -41,47 +57,52 @@ export function VexiVitrineMobile({ appareil }: Props) {
             Vexi World
           </h1>
           <p className="mt-3 font-sans text-lg font-medium text-[color:var(--vv-texte)]">
-            Reconnais les 197 drapeaux du monde.
+            {T.vitrine.accroche}
           </p>
           <p className="mt-1 font-sans text-sm text-[color:var(--vv-doux)]">
-            Un nouveau défi chaque jour.
+            {T.vitrine.sousAccroche}
           </p>
         </section>
 
         {/* 2. Le bouton principal */}
-        <section className="mt-8">{estIos ? <BlocIos /> : <BoutonGooglePlay />}</section>
+        <section className="mt-8">
+          {estIos ? <BlocIos T={T} /> : <BoutonGooglePlay T={T} />}
+        </section>
 
         {/* 3. Captures */}
-        <section className="mt-12" aria-label="Captures de l'application">
-          <h2 className="vv-titre-section px-0">En images</h2>
+        <section className="mt-12" aria-label={T.vitrine.capturesAria}>
+          <h2 className="vv-titre-section px-0">{T.vitrine.enImages}</h2>
           <div className="vv-carrousel -mx-5 mt-4 flex gap-4 overflow-x-auto px-5 pb-2">
-            {VEXI_CAPTURES.map((c) => (
-              <figure key={c.src} className="w-[62vw] max-w-[250px] shrink-0 snap-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={c.src}
-                  alt={`Vexi World : ${c.legende}`}
-                  width={540}
-                  height={960}
-                  loading="lazy"
-                  className="h-auto w-full rounded-[22px] border border-[color:var(--vv-bord)] shadow-md"
-                />
-                <figcaption className="mt-2 text-center font-sans text-sm text-[color:var(--vv-doux)]">
-                  {c.legende}
-                </figcaption>
-              </figure>
-            ))}
+            {VEXI_CAPTURES.map((c) => {
+              const legende = T.captures[c.cle];
+              return (
+                <figure key={c.src} className="w-[62vw] max-w-[250px] shrink-0 snap-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={c.src}
+                    alt={T.vitrine.capture(legende)}
+                    width={540}
+                    height={960}
+                    loading="lazy"
+                    className="h-auto w-full rounded-[22px] border border-[color:var(--vv-bord)] shadow-md"
+                  />
+                  <figcaption className="mt-2 text-center font-sans text-sm text-[color:var(--vv-doux)]">
+                    {legende}
+                  </figcaption>
+                </figure>
+              );
+            })}
           </div>
         </section>
 
         {/* 4. Les modes */}
         <section className="mt-12">
-          <h2 className="vv-titre-section">Les modes</h2>
+          <h2 className="vv-titre-section">{T.vitrine.lesModes}</h2>
           <ul className="mt-4 grid gap-3">
-            {VEXI_MODES.map((mode) => (
+            {T.modes.map((mode) => (
               <li key={mode.id} className="vv-carte px-4 py-4">
                 <h3 className="font-sans text-base font-semibold text-[color:var(--vv-texte)]">
-                  {mode.name}
+                  {mode.nom}
                 </h3>
                 <p className="mt-1 font-sans text-sm leading-relaxed text-[color:var(--vv-doux)]">
                   {mode.description}
@@ -102,17 +123,17 @@ export function VexiVitrineMobile({ appareil }: Props) {
               className="vv-bouton-principal"
             >
               <IconeInstagram />
-              Suis @vexi_world
+              {T.vitrine.suivre}
             </a>
           ) : (
-            <BoutonGooglePlay />
+            <BoutonGooglePlay T={T} />
           )}
         </section>
 
         {/* 5. Soutenir */}
         <section className="vv-carte mt-12 flex flex-col items-center px-5 py-6 text-center">
           <p className="font-sans text-sm leading-relaxed text-[color:var(--vv-doux)]">
-            Vexi World est créé par une seule personne. Tu peux aider le projet à grandir.
+            {T.vitrine.soutenirTexte}
           </p>
           {URL_SOUTIEN ? (
             <a
@@ -121,24 +142,24 @@ export function VexiVitrineMobile({ appareil }: Props) {
               rel="noopener noreferrer"
               className="vv-bouton-secondaire mt-4"
             >
-              ♥ Soutenir Vexi
+              {T.vitrine.soutenir}
             </a>
           ) : (
             <>
               <span className="vv-bouton-secondaire vv-inactif mt-4" aria-disabled="true">
-                ♥ Soutenir Vexi
+                {T.vitrine.soutenir}
               </span>
               <span className="mt-2 font-sans text-xs text-[color:var(--vv-doux)]">
-                Bientôt disponible
+                {T.vitrine.bientotDispo}
               </span>
             </>
           )}
         </section>
 
-        {/* 6. La démo sur ordi (déjà dite dans le bloc iPhone, donc pas répétée) */}
-        {estIos ? null : (
+        {/* 6. La démo sur ordi (déjà dite dans le bloc iPhone, et inutile si on est déjà sur ordi) */}
+        {estIos || fenetreEtroite ? null : (
           <p className="mt-10 text-center font-sans text-sm text-[color:var(--vv-doux)]">
-            Sur ordi, une démo jouable t&apos;attend sur jonathanjegard.com.
+            {T.vitrine.demoSurOrdi}
           </p>
         )}
       </main>
@@ -147,12 +168,12 @@ export function VexiVitrineMobile({ appareil }: Props) {
 }
 
 /** Android et autres : le bouton Google Play (inactif tant que l'app n'est pas publique). */
-function BoutonGooglePlay() {
+function BoutonGooglePlay({ T }: { T: Textes }) {
   if (!APP_PUBLIEE) {
     return (
       <span className="vv-bouton-principal vv-inactif" aria-disabled="true">
         <IconeGooglePlay />
-        Bientôt sur Google Play
+        {T.vitrine.bientotPlay}
       </span>
     );
   }
@@ -164,13 +185,13 @@ function BoutonGooglePlay() {
       className="vv-bouton-principal"
     >
       <IconeGooglePlay />
-      Télécharger sur Google Play
+      {T.vitrine.telechargerPlay}
     </a>
   );
 }
 
 /** iPhone et iPad : pas encore d'app, on propose Instagram et la démo sur ordi. */
-function BlocIos() {
+function BlocIos({ T }: { T: Textes }) {
   const { message, afficher, monte } = useMessage();
 
   async function copierLien() {
@@ -182,23 +203,19 @@ function BlocIos() {
         navigator.clipboard.writeText(URL_SITE_PUBLIC).then(() => "copie" as const),
         delai,
       ]);
-      afficher(
-        resultat === "copie"
-          ? "Lien copié, ouvre-le sur ton ordi"
-          : "Sur ton ordi, va sur jonathanjegard.com",
-      );
+      afficher(resultat === "copie" ? T.vitrine.lienCopie : T.vitrine.lienManuel);
     } catch {
-      afficher("Sur ton ordi, va sur jonathanjegard.com");
+      afficher(T.vitrine.lienManuel);
     }
   }
 
   return (
     <div className="vv-carte flex flex-col items-center px-5 py-6 text-center">
       <p className="font-sans text-lg font-semibold text-[color:var(--vv-texte)]">
-        Pas encore sur iPhone et iPad
+        {T.vitrine.pasEncoreIos}
       </p>
       <p className="mt-1 font-sans text-sm text-[color:var(--vv-doux)]">
-        Vexi World sort d&apos;abord sur Android.
+        {T.vitrine.androidDabord}
       </p>
 
       <a
@@ -208,19 +225,15 @@ function BlocIos() {
         className="vv-bouton-principal mt-5"
       >
         <IconeInstagram />
-        Suis @vexi_world
+        {T.vitrine.suivre}
       </a>
-      <p className="mt-2 font-sans text-xs text-[color:var(--vv-doux)]">
-        pour savoir quand ça arrive
-      </p>
+      <p className="mt-2 font-sans text-xs text-[color:var(--vv-doux)]">{T.vitrine.pourSavoir}</p>
 
       <div className="mt-6 h-px w-full bg-[color:var(--vv-bord)]" />
 
-      <p className="mt-5 font-sans text-sm text-[color:var(--vv-texte)]">
-        Joue à la démo sur ton ordi
-      </p>
+      <p className="mt-5 font-sans text-sm text-[color:var(--vv-texte)]">{T.vitrine.jouerSurOrdi}</p>
       <button type="button" onClick={() => void copierLien()} className="vv-bouton-secondaire mt-3">
-        Copier le lien
+        {T.vitrine.copierLien}
       </button>
 
       {monte

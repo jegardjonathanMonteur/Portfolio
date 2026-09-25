@@ -5,9 +5,14 @@ import { VexiVitrineMobile } from "@/components/vexi/VexiVitrineMobile";
 import { detecterAppareil, type Appareil } from "@/lib/appareil";
 import { useEffect, useState } from "react";
 
+/** Largeur mini pour la démo PC (même seuil que DEMO_PC_MIN_LARGEUR dans le jeu). */
+const LARGEUR_MIN_DEMO = 1200;
+
 /**
  * Page Vexi (/).
- * - Ordinateur : la démo jouable (iframe), comme avant.
+ * - Ordinateur, fenêtre d'au moins 1200 px : la démo jouable (iframe).
+ * - Ordinateur, fenêtre plus étroite : la vitrine, avec « Agrandis la fenêtre… ».
+ *   Dès que la fenêtre est assez large, la démo réapparaît (règle validée le 25/09).
  * - Téléphone ou tablette : la vitrine, sans jeu, qui envoie vers l'app.
  *
  * Le choix se fait dans le navigateur (le serveur ne sait pas quel écran regarde).
@@ -16,16 +21,21 @@ import { useEffect, useState } from "react";
  */
 export function VexiPage() {
   const [appareil, setAppareil] = useState<Appareil | null>(null);
+  const [fenetreEtroite, setFenetreEtroite] = useState(false);
 
   useEffect(() => {
     setAppareil(detecterAppareil());
+    const mesurer = () => setFenetreEtroite(window.innerWidth < LARGEUR_MIN_DEMO);
+    mesurer();
+    window.addEventListener("resize", mesurer);
+    return () => window.removeEventListener("resize", mesurer);
   }, []);
 
   if (appareil === null) {
     return <div className="vexi-attente" aria-hidden />;
   }
 
-  if (appareil === "pc") {
+  if (appareil === "pc" && !fenetreEtroite) {
     return (
       <div className="vexi-root">
         <main>
@@ -35,5 +45,5 @@ export function VexiPage() {
     );
   }
 
-  return <VexiVitrineMobile appareil={appareil} />;
+  return <VexiVitrineMobile appareil={appareil} fenetreEtroite={appareil === "pc"} />;
 }

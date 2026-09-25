@@ -162,7 +162,7 @@ function SoundToggleActive() {
           aria-hidden
         />
         <span className="font-sans text-xs uppercase tracking-[0.2em] text-cream">
-          SOUND — {isOn ? "ON" : "OFF"}
+          SOUND · {isOn ? "ON" : "OFF"}
         </span>
       </button>
     </>

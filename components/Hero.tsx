@@ -80,7 +80,7 @@ variants={fadeUp(0.8)}
         animate="animate"
         className="absolute bottom-8 left-8 z-10 font-sans text-xs uppercase tracking-[0.2em] text-white/50 md:bottom-12 md:left-12"
       >
-        ({SITE.year} — PORTFOLIO)
+        ({SITE.year} · PORTFOLIO)
       </motion.p>
 
       <motion.a

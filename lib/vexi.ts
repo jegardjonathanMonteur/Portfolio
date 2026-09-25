@@ -35,13 +35,14 @@ export const URL_SITE_PUBLIC = "https://jonathanjegard.com";
 /** Lien de paiement pour « Soutenir Vexi ». Vide = « Bientôt disponible ». */
 export const URL_SOUTIEN = "";
 
-/** Captures de l'app montrées dans la vitrine téléphone (public/vexi/captures). */
+/** Captures de l'app montrées dans la vitrine téléphone (public/vexi/captures).
+ * Légendes traduites dans lib/textes-site.ts (clé `captures`). */
 export const VEXI_CAPTURES = [
-  { src: "/vexi/captures/defi.webp", legende: "Défi du jour" },
-  { src: "/vexi/captures/contre-la-montre.webp", legende: "Contre-la-montre" },
-  { src: "/vexi/captures/mosaique.webp", legende: "Mosaïque" },
-  { src: "/vexi/captures/carte.webp", legende: "La carte" },
-  { src: "/vexi/captures/revision.webp", legende: "Révision" },
+  { src: "/vexi/captures/defi.webp", cle: "defi" },
+  { src: "/vexi/captures/contre-la-montre.webp", cle: "clm" },
+  { src: "/vexi/captures/mosaique.webp", cle: "mosaique" },
+  { src: "/vexi/captures/carte.webp", cle: "carte" },
+  { src: "/vexi/captures/revision.webp", cle: "revision" },
 ] as const;
 
 export const VEXI_SEO = {
