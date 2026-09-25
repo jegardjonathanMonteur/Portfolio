@@ -125,7 +125,7 @@ export function SelectedWork() {
                 onPlay={() => setYoutubeOpen(true)}
               />
               <p className="mt-6 font-sans text-base leading-relaxed text-fog-mist">
-                Une vidéo qui raconte une histoire du début à la fin.
+                Je me suis lancé un défi en natation. J'en ai fait ma première vidéo.
               </p>
             </div>
           </FadeIn>
@@ -147,7 +147,7 @@ export function SelectedWork() {
                 />
               )}
               <p className="mt-6 font-sans text-base leading-relaxed text-fog-mist">
-                Une vidéo de vente qui convainc. Validée par l&apos;équipe VK Studio.
+                Exercice de VSL réalisé lors de ma formation au VK Studio, validé par les formateurs.
               </p>
             </div>
           </FadeIn>

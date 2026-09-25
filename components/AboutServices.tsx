@@ -81,7 +81,7 @@ export default function AboutServices() {
           <p className="font-sans text-lg leading-relaxed text-[#E8E0D0] md:text-xl">
             Je m&apos;appelle Jonathan Jegard.<br />
             Monteur vidéo &amp; motion designer basé à Brest.<br />
-            J&apos;ai choisi ce métier par conviction — pas par accident.
+            J&apos;ai choisi ce métier par conviction, pas par accident.
           </p>
         </motion.div>
 
@@ -113,7 +113,7 @@ export default function AboutServices() {
           viewport={{ once: true }}
           className="mb-20 text-center font-display text-2xl leading-snug text-fog-cream md:text-3xl md:leading-relaxed"
         >
-          &ldquo;Storytelling, VSL, motion design — trois façons différentes de
+          &ldquo;Storytelling, VSL, motion design : trois façons différentes de
           raconter, convaincre, marquer.&rdquo;
         </motion.p>
 
@@ -129,7 +129,7 @@ export default function AboutServices() {
             Je communique à chaque étape.
           </p>
           <p className="mt-4 font-sans text-lg font-semibold leading-relaxed text-[#B8A8D0] md:text-xl">
-            Pas de surprises — juste du travail sérieux, au service de votre projet.
+            Pas de surprises, juste du travail sérieux au service de votre projet.
           </p>
         </motion.div>
       </div>

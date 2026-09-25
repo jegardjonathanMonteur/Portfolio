@@ -57,6 +57,21 @@ export function Hero() {
         >
           {SITE.tagline}
         </motion.p>
+        <motion.div
+variants={fadeUp(0.8)}
+          initial="initial"
+          animate="animate"
+          className="mt-6 flex flex-col items-center gap-3"
+        >
+          <div className="flex items-center gap-3">
+            <span className="block h-px w-10 bg-white/30" />
+            <span className="text-sm text-white/50">✦</span>
+            <span className="block h-px w-10 bg-white/30" />
+          </div>
+          <span className="text-xs uppercase tracking-[0.25em] text-white/60">
+            FORMÉ CHEZ VK STUDIO
+          </span>
+        </motion.div>
       </div>
 
       <motion.p
