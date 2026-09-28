@@ -33,10 +33,24 @@ export function VexiVitrineMobile({ appareil, fenetreEtroite = false }: Props) {
   const langue = useLangueSite();
   const T = TEXTES_SITE[langue];
   const estIos = appareil === "ios";
+  const merci = useRetourSoutien();
 
   return (
     <div className="vexi-vitrine" lang={langue}>
       <main className="mx-auto flex max-w-xl flex-col px-5 pb-16">
+        {/* Retour de Stripe après un soutien (?merci=1) : affiché une seule fois. */}
+        {merci ? (
+          <div
+            role="status"
+            className="vv-carte mt-6 flex items-start gap-3 px-4 py-4 text-left"
+          >
+            <p className="flex-1 font-sans text-sm text-[color:var(--vv-texte)]">
+              <span className="block font-semibold">{T.vitrine.merciTitre}</span>
+              <span className="text-[color:var(--vv-doux)]">{T.vitrine.merciTexte}</span>
+            </p>
+          </div>
+        ) : null}
+
         {fenetreEtroite ? (
           <p className="vv-carte mt-6 px-4 py-3 text-center font-sans text-sm font-semibold text-[color:var(--vv-accent)]">
             ↔ {T.vitrine.agrandir}
@@ -250,6 +264,28 @@ function BlocIos({ T }: { T: Textes }) {
         : null}
     </div>
   );
+}
+
+/**
+ * Retour de Stripe après un soutien : l'adresse contient ?merci=1.
+ * On affiche le merci, puis on retire ?merci=1 de l'adresse pour qu'un rechargement
+ * de la page ne remercie pas une deuxième fois (même règle que dans la démo PC).
+ */
+function useRetourSoutien(): boolean {
+  const [merci, setMerci] = useState(false);
+  useEffect(() => {
+    try {
+      const u = new URL(window.location.href);
+      if (u.searchParams.get("merci") !== "1") return;
+      setMerci(true);
+      u.searchParams.delete("merci");
+      const q = u.searchParams.toString();
+      window.history.replaceState(null, "", `${u.pathname}${q ? `?${q}` : ""}${u.hash}`);
+    } catch {
+      /* adresse illisible : pas de message, rien de grave */
+    }
+  }, []);
+  return merci;
 }
 
 /** Petit message en bas de l'écran pendant 2,8 s. */

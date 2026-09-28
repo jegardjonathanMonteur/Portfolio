@@ -29,6 +29,8 @@ type Textes = {
     lienCopie: string;
     lienManuel: string;
     agrandir: string;
+    merciTitre: string;
+    merciTexte: string;
   };
   captures: Record<"defi" | "clm" | "mosaique" | "carte" | "revision", string>;
   modes: { id: string; nom: string; description: string }[];
@@ -67,6 +69,8 @@ export const TEXTES_SITE: Record<LangueSite, Textes> = {
       lienCopie: "Lien copié, ouvre-le sur ton ordi",
       lienManuel: "Sur ton ordi, va sur jonathanjegard.com",
       agrandir: "Agrandis la fenêtre pour jouer à la démo.",
+      merciTitre: "Merci pour ton soutien ! 💙",
+      merciTexte: "Tu fais avancer Vexi.",
     },
     captures: {
       defi: "Défi du jour",
@@ -117,6 +121,8 @@ export const TEXTES_SITE: Record<LangueSite, Textes> = {
       lienCopie: "Link copied, open it on your computer",
       lienManuel: "On your computer, go to jonathanjegard.com",
       agrandir: "Make the window wider to play the demo.",
+      merciTitre: "Thank you for your support! 💙",
+      merciTexte: "You're helping Vexi grow.",
     },
     captures: {
       defi: "Daily Challenge",
@@ -167,6 +173,8 @@ export const TEXTES_SITE: Record<LangueSite, Textes> = {
       lienCopie: "Enlace copiado, ábrelo en tu ordenador",
       lienManuel: "En tu ordenador, ve a jonathanjegard.com",
       agrandir: "Agranda la ventana para jugar a la demo.",
+      merciTitre: "¡Gracias por tu apoyo! 💙",
+      merciTexte: "Haces avanzar a Vexi.",
     },
     captures: {
       defi: "Reto Diario",
@@ -217,6 +225,8 @@ export const TEXTES_SITE: Record<LangueSite, Textes> = {
       lienCopie: "Link kopiert, öffne ihn am Computer",
       lienManuel: "Geh am Computer auf jonathanjegard.com",
       agrandir: "Mach das Fenster breiter, um die Demo zu spielen.",
+      merciTitre: "Danke für deine Unterstützung! 💙",
+      merciTexte: "Du bringst Vexi voran.",
     },
     captures: {
       defi: "Tägliche Herausforderung",
@@ -267,6 +277,8 @@ export const TEXTES_SITE: Record<LangueSite, Textes> = {
       lienCopie: "Link copiato, aprilo sul computer",
       lienManuel: "Sul computer, vai su jonathanjegard.com",
       agrandir: "Allarga la finestra per giocare alla demo.",
+      merciTitre: "Grazie per il tuo sostegno! 💙",
+      merciTexte: "Fai crescere Vexi.",
     },
     captures: {
       defi: "Sfida Quotidiana",

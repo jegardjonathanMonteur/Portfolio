@@ -32,8 +32,21 @@ export const VEXI_INSTAGRAM = "https://www.instagram.com/vexi_world/";
 /** Adresse publique du site, copiée par le bouton « Copier le lien » (iPhone / iPad). */
 export const URL_SITE_PUBLIC = "https://jonathanjegard.com";
 
-/** Lien de paiement pour « Soutenir Vexi ». Vide = « Bientôt disponible ». */
-export const URL_SOUTIEN = "";
+/**
+ * « Soutenir Vexi » : lien de paiement Stripe (montant libre 2 à 100 €, 5 € proposés),
+ * créé le 28/09/2026. Après paiement, Stripe renvoie sur https://jonathanjegard.com/?merci=1.
+ */
+const LIEN_STRIPE_SOUTIEN = "https://buy.stripe.com/fZu9ATewacGde3g3wt8og00";
+
+/**
+ * Interrupteur du bouton « Soutenir Vexi ». false = « Bientôt disponible ».
+ * À passer à true seulement quand Jonathan dit « active », en même temps que
+ * SOUTIEN_ACTIF dans la démo (jeu-drapeaux/src/config/demo.ts).
+ */
+export const SOUTIEN_ACTIF = false;
+
+/** Lien utilisé par les boutons. Vide tant que le soutien n'est pas activé. */
+export const URL_SOUTIEN = SOUTIEN_ACTIF ? LIEN_STRIPE_SOUTIEN : "";
 
 /** Captures de l'app montrées dans la vitrine téléphone (public/vexi/captures).
  * Légendes traduites dans lib/textes-site.ts (clé `captures`). */
