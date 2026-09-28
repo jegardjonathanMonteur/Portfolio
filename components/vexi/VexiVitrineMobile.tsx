@@ -279,6 +279,10 @@ function useRetourSoutien(): boolean {
       if (u.searchParams.get("merci") !== "1") return;
       setMerci(true);
       u.searchParams.delete("merci");
+      // Stripe recopie aussi le marqueur de provenance (utm_…) dans l'adresse de retour.
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((k) =>
+        u.searchParams.delete(k),
+      );
       const q = u.searchParams.toString();
       window.history.replaceState(null, "", `${u.pathname}${q ? `?${q}` : ""}${u.hash}`);
     } catch {

@@ -45,8 +45,12 @@ const LIEN_STRIPE_SOUTIEN = "https://buy.stripe.com/fZu9ATewacGde3g3wt8og00";
  */
 export const SOUTIEN_ACTIF = false;
 
-/** Lien utilisé par les boutons. Vide tant que le soutien n'est pas activé. */
-export const URL_SOUTIEN = SOUTIEN_ACTIF ? LIEN_STRIPE_SOUTIEN : "";
+/**
+ * Bouton « Soutenir Vexi » de la vitrine téléphone : ouvre directement Stripe
+ * (Apple Pay / Google Pay proposés sur place). Marqueur `site_mobile` pour les
+ * statistiques Stripe. Vide tant que le soutien n'est pas activé.
+ */
+export const URL_SOUTIEN = SOUTIEN_ACTIF ? `${LIEN_STRIPE_SOUTIEN}?utm_source=site_mobile` : "";
 
 /** Captures de l'app montrées dans la vitrine téléphone (public/vexi/captures).
  * Légendes traduites dans lib/textes-site.ts (clé `captures`). */
