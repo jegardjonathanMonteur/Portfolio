@@ -43,7 +43,7 @@ const LIEN_STRIPE_SOUTIEN = "https://buy.stripe.com/fZu9ATewacGde3g3wt8og00";
  * À passer à true seulement quand Jonathan dit « active », en même temps que
  * SOUTIEN_ACTIF dans la démo (jeu-drapeaux/src/config/demo.ts).
  */
-export const SOUTIEN_ACTIF = false;
+export const SOUTIEN_ACTIF = true;
 
 /**
  * Bouton « Soutenir Vexi » de la vitrine téléphone : ouvre directement Stripe
