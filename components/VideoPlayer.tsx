@@ -66,20 +66,31 @@ export function VideoPlayer({
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
-    const onPlay = () => setPlaying(true);
-    const onPause = () => setPlaying(false);
-    v.addEventListener("play", onPlay);
-    v.addEventListener("pause", onPause);
-    return () => {
-      v.removeEventListener("play", onPlay);
-      v.removeEventListener("pause", onPause);
-    };
-  }, []);
 
-  useEffect(() => {
-    document.dispatchEvent(new CustomEvent("video-playing"));
+    // Musique d'ambiance (règle 4 de SoundToggle, revue le 28/09/2026) : on ne la coupe
+    // que quand cette vidéo joue VRAIMENT avec le son. Afficher le lecteur ou lire en muet
+    // ne coupe rien. Dès que le son de la vidéo s'arrête (pause, muet, fin), on la relâche.
+    const id = `video-${Math.random().toString(36).slice(2)}`;
+    let sonore = false;
+    const signaler = (avecSon: boolean) => {
+      if (avecSon === sonore) return;
+      sonore = avecSon;
+      document.dispatchEvent(
+        new CustomEvent(avecSon ? "video-playing" : "video-ended", { detail: { id } }),
+      );
+    };
+    const evaluer = () => {
+      setPlaying(!v.paused);
+      setMuted(v.muted);
+      signaler(!v.paused && !v.ended && !v.muted && v.volume > 0);
+    };
+
+    const evenements = ["play", "playing", "pause", "ended", "volumechange"] as const;
+    evenements.forEach((ev) => v.addEventListener(ev, evaluer));
     return () => {
-      document.dispatchEvent(new CustomEvent("video-ended"));
+      evenements.forEach((ev) => v.removeEventListener(ev, evaluer));
+      // Le lecteur disparaît de la page : la musique peut reprendre.
+      signaler(false);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);

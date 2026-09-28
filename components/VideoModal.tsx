@@ -18,11 +18,13 @@ export function VideoModal({ isOpen, onClose, videoId }: VideoModalProps) {
   );
 
   useEffect(() => {
+    // Vidéo YouTube en grand, avec le son : pause de la musique à l'ouverture,
+    // reprise à la fermeture (règle 4 de SoundToggle).
     if (isOpen) {
-      document.dispatchEvent(new CustomEvent("video-playing"));
+      document.dispatchEvent(new CustomEvent("video-playing", { detail: { id: "youtube" } }));
       document.body.style.overflow = "hidden";
     } else {
-      document.dispatchEvent(new CustomEvent("video-ended"));
+      document.dispatchEvent(new CustomEvent("video-ended", { detail: { id: "youtube" } }));
       document.body.style.overflow = "";
     }
     return () => {
