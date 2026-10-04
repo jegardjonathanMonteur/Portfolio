@@ -7,11 +7,12 @@
 export const VEXI_ACCENT = "#5B8CFF";
 
 /**
- * L'app n'est pas encore publique. Tant que false, la vitrine téléphone affiche
+ * L'app est-elle publique ? Si false, la vitrine téléphone affiche
  * « Bientôt sur Google Play » (non cliquable) au lieu du vrai bouton.
- * À passer à true le jour J, en même temps que la mise en ligne du site.
+ * Passé à true le 04/10/2026 : app publiée sur Google Play (même valeur que
+ * APP_SUR_PLAY dans la démo, jeu-drapeaux/src/config/demo.ts).
  */
-export const APP_PUBLIEE = false;
+export const APP_PUBLIEE = true;
 
 /** Fiche Play Store de Vexi World, sans marqueur. */
 const FICHE_PLAY_STORE =
@@ -33,7 +34,7 @@ export const VEXI_INSTAGRAM = "https://www.instagram.com/vexi_world/";
 export const URL_SITE_PUBLIC = "https://jonathanjegard.com";
 
 /**
- * « Soutenir Vexi » : lien de paiement Stripe (montant libre 2 à 100 €, 5 € proposés),
+ * « Soutenir Vexi » : lien de paiement Stripe (montant libre 2 à 500 €, 5 € proposés),
  * créé le 28/09/2026. Après paiement, Stripe renvoie sur https://jonathanjegard.com/?merci=1.
  */
 const LIEN_STRIPE_SOUTIEN = "https://buy.stripe.com/fZu9ATewacGde3g3wt8og00";
