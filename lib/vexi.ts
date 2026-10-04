@@ -31,11 +31,11 @@ export const URL_PLAY_STORE_MOBILE = `${FICHE_PLAY_STORE}&referrer=${encodeURICo
 export const VEXI_INSTAGRAM = "https://www.instagram.com/vexi_world/";
 
 /** Adresse publique du site, copiée par le bouton « Copier le lien » (iPhone / iPad). */
-export const URL_SITE_PUBLIC = "https://jonathanjegard.com";
+export const URL_SITE_PUBLIC = "https://jonathanjegard.com/vexi";
 
 /**
  * « Soutenir Vexi » : lien de paiement Stripe (montant libre 2 à 500 €, 5 € proposés),
- * créé le 28/09/2026. Après paiement, Stripe renvoie sur https://jonathanjegard.com/?merci=1.
+ * créé le 28/09/2026. Après paiement, Stripe renvoie sur https://jonathanjegard.com/?merci=1, puis le site renvoie sur /vexi?merci=1.
  */
 const LIEN_STRIPE_SOUTIEN = "https://buy.stripe.com/fZu9ATewacGde3g3wt8og00";
 

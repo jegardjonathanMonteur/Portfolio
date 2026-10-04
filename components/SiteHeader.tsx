@@ -67,7 +67,7 @@ export function SiteHeader() {
         aria-label="Espaces du site"
       >
         <Link
-          href="/"
+          href="/vexi"
           aria-current={!isPortfolio ? "page" : undefined}
           className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-[11px] uppercase tracking-[0.16em] transition-colors duration-300 sm:px-4 sm:text-xs ${
             !isPortfolio

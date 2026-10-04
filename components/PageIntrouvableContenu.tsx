@@ -26,7 +26,7 @@ export function PageIntrouvableContenu() {
       <p className="max-w-md text-base text-cream-muted">{T.texte}</p>
       <div className="flex flex-col gap-3 sm:flex-row">
         <Link
-          href="/"
+          href="/vexi"
           className="rounded-full bg-vexi-accent px-6 py-3 font-sans text-sm font-medium text-night transition-opacity hover:opacity-90"
         >
           {T.jouer}

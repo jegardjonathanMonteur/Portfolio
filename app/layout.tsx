@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: "Vexi World",
     locale: "fr_FR",
     type: "website",
-    url: "/",
+    url: "/vexi",
     // Image montrée quand on partage le lien (WhatsApp, Instagram, Messenger…).
     images: [
       {

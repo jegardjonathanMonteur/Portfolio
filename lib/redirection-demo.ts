@@ -1,5 +1,5 @@
 /**
- * Faut-il renvoyer vers la vitrine (/) quelqu'un qui ouvre l'adresse de la démo (/demo/…) ?
+ * Faut-il renvoyer vers la vitrine (/vexi) quelqu'un qui ouvre l'adresse de la démo (/demo/…) ?
  *
  * Règle validée le 25/09 : sur téléphone ou tablette, pas de démo jouable.
  * On ne renvoie que l'ouverture de la PAGE elle-même :

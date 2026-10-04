@@ -79,7 +79,7 @@ export default function MentionsLegales() {
 
         <div className="flex flex-wrap gap-3 pt-2">
           <Link
-            href="/"
+            href="/vexi"
             className="rounded-full bg-vexi-accent px-6 py-3 font-sans text-sm font-medium text-night transition-opacity hover:opacity-90"
           >
             Retour à Vexi World

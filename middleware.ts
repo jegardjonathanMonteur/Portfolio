@@ -2,7 +2,7 @@ import { doitRenvoyerVersVitrine } from "@/lib/redirection-demo";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Sur téléphone ou tablette, l'adresse de la démo (/demo/…) renvoie vers la vitrine (/).
+ * Sur téléphone ou tablette, l'adresse de la démo (/demo/…) renvoie vers la vitrine (/vexi).
  * Les règles sont dans lib/redirection-demo.ts.
  */
 export function middleware(req: NextRequest) {
@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
   if (!renvoyer) return NextResponse.next();
 
   const url = req.nextUrl.clone();
-  url.pathname = "/";
+  url.pathname = "/vexi";
   url.search = "";
   return NextResponse.redirect(url, 307);
 }

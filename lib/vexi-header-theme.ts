@@ -38,7 +38,8 @@ export function applyVexiHeaderNight(night: boolean) {
 /** Script bloquant : applique le thème avant le premier paint, pas de flash. */
 export const VEXI_HEADER_THEME_BOOT = `(function(){
   try {
-    if (location.pathname !== "/") return;
+    var p = location.pathname;
+    if (p !== "/vexi" && p !== "/vexi/" && p !== "/") return;
     var v = localStorage.getItem(${JSON.stringify(VEXI_THEME_STORAGE_KEY)});
     var night = v === "sombre" || (v !== "clair" && window.matchMedia("(prefers-color-scheme: dark)").matches);
     var root = document.documentElement;
