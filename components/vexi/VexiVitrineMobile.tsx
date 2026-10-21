@@ -8,6 +8,7 @@ import {
   URL_PLAY_STORE_MOBILE,
   URL_SITE_PUBLIC,
   URL_SOUTIEN,
+  URL_SOUTIEN_HAUT,
   VEXI_CAPTURES,
   VEXI_INSTAGRAM,
 } from "@/lib/vexi";
@@ -78,6 +79,10 @@ export function VexiVitrineMobile({ appareil, fenetreEtroite = false }: Props) {
           </p>
         </section>
 
+        {/* 1 bis. « Soutenir Vexi » aussi en haut, sur téléphone et tablette seulement
+            (règle du 21/10/2026). Sur ordi (fenêtre étroite), rien ne change. La carte du bas reste. */}
+        {fenetreEtroite ? null : <CarteSoutenir T={T} url={URL_SOUTIEN_HAUT} className="mt-8" />}
+
         {/* 2. Le bouton principal */}
         <section className="mt-8">
           {estIos ? <BlocIos T={T} /> : <BoutonGooglePlay T={T} />}
@@ -145,30 +150,7 @@ export function VexiVitrineMobile({ appareil, fenetreEtroite = false }: Props) {
         </section>
 
         {/* 5. Soutenir */}
-        <section className="vv-carte mt-12 flex flex-col items-center px-5 py-6 text-center">
-          <p className="font-sans text-sm leading-relaxed text-[color:var(--vv-doux)]">
-            {T.vitrine.soutenirTexte}
-          </p>
-          {URL_SOUTIEN ? (
-            <a
-              href={URL_SOUTIEN}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="vv-bouton-secondaire mt-4"
-            >
-              {T.vitrine.soutenir}
-            </a>
-          ) : (
-            <>
-              <span className="vv-bouton-secondaire vv-inactif mt-4" aria-disabled="true">
-                {T.vitrine.soutenir}
-              </span>
-              <span className="mt-2 font-sans text-xs text-[color:var(--vv-doux)]">
-                {T.vitrine.bientotDispo}
-              </span>
-            </>
-          )}
-        </section>
+        <CarteSoutenir T={T} url={URL_SOUTIEN} className="mt-12" />
 
         {/* 6. La démo sur ordi (déjà dite dans le bloc iPhone, et inutile si on est déjà sur ordi) */}
         {estIos || fenetreEtroite ? null : (
@@ -178,6 +160,39 @@ export function VexiVitrineMobile({ appareil, fenetreEtroite = false }: Props) {
         )}
       </main>
     </div>
+  );
+}
+
+/**
+ * Carte « Soutenir Vexi » : texte + bouton vers Stripe (ou « Bientôt disponible » si le soutien
+ * n'est pas activé). Utilisée deux fois sur téléphone : en haut et en bas de la vitrine.
+ */
+function CarteSoutenir({ T, url, className }: { T: Textes; url: string; className: string }) {
+  return (
+    <section className={`vv-carte ${className} flex flex-col items-center px-5 py-6 text-center`}>
+      <p className="font-sans text-sm leading-relaxed text-[color:var(--vv-doux)]">
+        {T.vitrine.soutenirTexte}
+      </p>
+      {url ? (
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="vv-bouton-secondaire mt-4"
+        >
+          {T.vitrine.soutenir}
+        </a>
+      ) : (
+        <>
+          <span className="vv-bouton-secondaire vv-inactif mt-4" aria-disabled="true">
+            {T.vitrine.soutenir}
+          </span>
+          <span className="mt-2 font-sans text-xs text-[color:var(--vv-doux)]">
+            {T.vitrine.bientotDispo}
+          </span>
+        </>
+      )}
+    </section>
   );
 }
 

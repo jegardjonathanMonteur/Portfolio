@@ -53,6 +53,14 @@ export const SOUTIEN_ACTIF = true;
  */
 export const URL_SOUTIEN = SOUTIEN_ACTIF ? `${LIEN_STRIPE_SOUTIEN}?utm_source=site_mobile` : "";
 
+/**
+ * Même bouton, dans la carte « Soutenir Vexi » du HAUT de la vitrine téléphone (ajoutée le
+ * 21/10/2026). Marqueur à part (`site_mobile_haut`) pour voir dans Stripe quelle carte sert le plus.
+ */
+export const URL_SOUTIEN_HAUT = SOUTIEN_ACTIF
+  ? `${LIEN_STRIPE_SOUTIEN}?utm_source=site_mobile_haut`
+  : "";
+
 /** Captures de l'app montrées dans la vitrine téléphone (public/vexi/captures).
  * Légendes traduites dans lib/textes-site.ts (clé `captures`). */
 export const VEXI_CAPTURES = [
